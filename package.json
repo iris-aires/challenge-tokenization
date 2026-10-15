@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/nextjs/vendor/*"
     ]
   },
   "scripts": {
@@ -50,7 +51,8 @@
     "verify": "yarn foundry:verify"
   },
   "resolutions": {
-    "@coinbase/cdp-sdk": "1.52.0"
+    "@coinbase/cdp-sdk": "1.52.0",
+    "blo": "workspace:*"
   },
   "devDependencies": {
     "husky": "~9.1.6",

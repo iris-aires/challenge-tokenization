@@ -1,11 +1,16 @@
 "use client";
 
 import { AvatarComponent } from "@rainbow-me/rainbowkit";
-import { blo } from "blo";
+import { getAddressAvatar } from "~~/utils/addressAvatar";
 
-// Custom Avatar for RainbowKit
+// Preserve ENS avatars and use a smooth address-based gradient as the fallback.
 export const BlockieAvatar: AvatarComponent = ({ address, ensImage, size }) => (
-  // Don't want to use nextJS Image here (and adding remote patterns for the URL)
   // eslint-disable-next-line @next/next/no-img-element
-  <img src={ensImage || blo(address as `0x${string}`)} width={size} height={size} alt={`${address} avatar`} />
+  <img
+    src={ensImage || getAddressAvatar(address)}
+    width={size}
+    height={size}
+    alt={`${address} avatar`}
+    className="shrink-0 rounded-full object-cover ring-1 ring-white/15"
+  />
 );

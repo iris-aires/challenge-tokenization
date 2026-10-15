@@ -89,11 +89,17 @@ export const MyHoldings = () => {
   return (
     <>
       {myAllCollectibles.length === 0 ? (
-        <div className="flex justify-center items-center mt-10">
-          <div className="text-2xl text-primary-content">No NFTs found</div>
+        <div className="exchange-panel flex min-h-64 flex-col items-center justify-center gap-3 border-dashed p-8 text-center">
+          <span className="text-4xl text-primary" aria-hidden="true">
+            ◇
+          </span>
+          <h3 className="text-lg font-semibold">Your collection starts here</h3>
+          <p className="exchange-muted max-w-sm text-sm leading-6">
+            Connect your wallet and mint your first character. Your NFTs will appear here.
+          </p>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-4 my-8 px-5 justify-center">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {myAllCollectibles.map(item => (
             <NFTCard nft={item} key={item.id} />
           ))}

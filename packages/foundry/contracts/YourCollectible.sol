@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract YourCollectible is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     uint256 public tokenIdCounter;
 
-    constructor() ERC721("YourCollectible", "YCB") Ownable(msg.sender) { }
+    constructor() ERC721("Nexus Legends", "NXLG") Ownable(msg.sender) { }
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://ipfs.io/ipfs/";

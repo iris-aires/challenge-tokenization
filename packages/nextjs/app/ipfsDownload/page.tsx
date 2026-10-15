@@ -1,20 +1,15 @@
 "use client";
 
-import { lazy, useEffect, useState } from "react";
+import { useState } from "react";
 import type { NextPage } from "next";
+import { JsonEditor } from "~~/components/JsonEditor";
 import { notification } from "~~/utils/scaffold-eth";
 import { getMetadataFromIPFS } from "~~/utils/tokenization/ipfs-fetch";
-
-const LazyReactJson = lazy(() => import("react-json-view"));
 
 const IpfsDownload: NextPage = () => {
   const [yourJSON, setYourJSON] = useState({});
   const [ipfsPath, setIpfsPath] = useState("");
   const [loading, setLoading] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleIpfsDownload = async () => {
     setLoading(true);
@@ -36,13 +31,13 @@ const IpfsDownload: NextPage = () => {
 
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <h1 className="text-center mb-4">
-          <span className="block text-4xl font-bold">Download from IPFS</span>
+      <div className="exchange-container flex items-stretch flex-col py-10 sm:py-12 gap-4">
+        <h1 className="mb-4">
+          <span className="block text-3xl font-semibold sm:text-4xl">Download from IPFS</span>
         </h1>
-        <div className={`flex border-2 border-accent/95 bg-base-200 text-accent w-96`}>
+        <div className={`flex w-full max-w-xl overflow-hidden rounded-lg border border-base-300 bg-base-100`}>
           <input
-            className="input input-ghost focus:outline-none focus:bg-transparent focus:text-secondary-content h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-accent/50 text-secondary-content/75"
+            className="input w-full border-0 bg-transparent px-4 text-sm placeholder:text-base-content/40"
             placeholder="IPFS CID"
             value={ipfsPath}
             onChange={e => setIpfsPath(e.target.value)}
@@ -50,30 +45,26 @@ const IpfsDownload: NextPage = () => {
           />
         </div>
         <button
-          className={`btn btn-secondary my-6 ${loading ? "loading" : ""}`}
+          className={`btn btn-primary self-start my-2 ${loading ? "loading" : ""}`}
           disabled={loading}
           onClick={handleIpfsDownload}
         >
           Download from IPFS
         </button>
 
-        {mounted && (
-          <LazyReactJson
-            style={{ padding: "1rem" }}
-            src={yourJSON}
-            theme="solarized"
-            enableClipboard={false}
-            onEdit={edit => {
-              setYourJSON(edit.updated_src);
-            }}
-            onAdd={add => {
-              setYourJSON(add.updated_src);
-            }}
-            onDelete={del => {
-              setYourJSON(del.updated_src);
-            }}
-          />
-        )}
+        <JsonEditor
+          src={yourJSON}
+          enableClipboard={false}
+          onEdit={edit => {
+            setYourJSON(edit.updated_src);
+          }}
+          onAdd={add => {
+            setYourJSON(add.updated_src);
+          }}
+          onDelete={del => {
+            setYourJSON(del.updated_src);
+          }}
+        />
       </div>
     </>
   );

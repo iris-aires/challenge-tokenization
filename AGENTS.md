@@ -1,16 +1,8 @@
 # AGENTS.md
 
-## What is Speedrun Ethereum?
+## Project Overview
 
-[Speedrun Ethereum](https://speedrunethereum.com/) is a hands-on learning platform where developers learn Solidity and Ethereum development by building real dApps through progressive challenges. Instead of passive tutorials, each challenge teaches a key concept: from tokens and crowdfunding to DEXs, oracles, lending, and zero-knowledge proofs. All challenges use Scaffold-ETH 2 as the development framework. Completed challenges become public portfolio items.
-
-**This extension is one of the Speedrun Ethereum challenges.** It covers **Tokenization**.
-
-## Challenge Overview
-
-The learner builds an NFT minting and transferring dApp using an ERC-721 contract (`YourCollectible`). The goal is to understand onchain ownership, compile and deploy smart contracts, interact with them via a Next.js frontend, and finally deploy to a public testnet.
-
-The final deliverable: an app that lets users mint and transfer NFTs. Deploy contracts to a testnet, ship the frontend to Vercel, and submit the URL on SpeedRunEthereum.com.
+An NFT minting and transferring dApp built on Scaffold-ETH 2 with an ERC-721 contract (`YourCollectible`). Users can mint collectible NFTs (metadata stored on IPFS), transfer them to other addresses, and inspect onchain ownership. Contracts are deployed to a public testnet and the Next.js frontend is shipped to Vercel.
 
 ## Why Tokenization Matters
 
@@ -41,7 +33,7 @@ packages/
     script/
       Deploy.s.sol           # Foundry deploy script
     test/
-      YourCollectible.t.sol  # Challenge grading tests
+      YourCollectible.t.sol  # Contract tests
   nextjs/            # React frontend (Next.js App Router)
     app/
       myNFTs/                # Mint NFTs and view holdings
@@ -56,7 +48,7 @@ packages/
     utils/tokenization/
       nftsMetadata.ts        # Predefined NFT metadata (Buffalo, Zebra, Rhino, etc.)
       ipfs-fetch.ts          # IPFS upload/download helpers via API routes
-      ipfs.ts                # Pins/reads metadata via the SpeedRunEthereum IPFS proxy (no credentials needed)
+      ipfs.ts                # Pins/reads metadata via a public IPFS pinning proxy (no credentials needed)
     app/api/ipfs/            # API routes for IPFS pinning
 ```
 
@@ -69,7 +61,7 @@ yarn deploy         # Deploy contracts to local network
 yarn start          # Start Next.js frontend at http://localhost:3000
 
 # Testing
-yarn test           # Run challenge grading tests
+yarn test           # Run contract tests
 
 # Code quality
 yarn lint           # Lint both packages
@@ -119,19 +111,19 @@ Use the correct hook names: `useScaffoldReadContract`, `useScaffoldWriteContract
 - **Next.js App Router** (not Pages Router) - pages are at `app/<route>/page.tsx`
 - **Import alias**: use `~~` for nextjs package imports (e.g., `import { ... } from "~~/hooks/scaffold-eth"`)
 - After `yarn deploy`, contract ABIs auto-generate to `packages/nextjs/contracts/deployedContracts.ts`
-- IPFS operations go through Next.js API routes (`/api/ipfs/add`, `/api/ipfs/get-metadata`), which call the SpeedRunEthereum pinning proxy (`https://speedrunethereum.com/api/ipfs`). No IPFS credentials or env vars are needed
+- IPFS operations go through Next.js API routes (`/api/ipfs/add`, `/api/ipfs/get-metadata`), which call a public IPFS pinning proxy (override with the `IPFS_API_URL` env var). No IPFS credentials are needed
 - Burner wallets are available on localhost only by default. For testnet, users connect MetaMask or enable burner wallets via `burnerWalletMode: "allNetworks"` in `scaffold.config.ts`
 
 ## Testing
 
-The grading tests verify:
+The tests verify:
 1. Contract deploys successfully
 2. `mintItem()` can mint an NFT and increases the owner's balance
 3. `tokenOfOwnerByIndex()` tracks tokens correctly
 
 Test location: `packages/foundry/test/YourCollectible.t.sol`
 
-Run with `yarn test`. These same tests are used by the Speedrun Ethereum autograder.
+Run with `yarn test`.
 
 ## Deployment Checklist (Testnet)
 
@@ -157,20 +149,3 @@ Run with `yarn test`. These same tests are used by the Speedrun Ethereum autogra
 - The `mintItem` function has no access control by design (anyone can mint)
 - NFT metadata cycles through 6 predefined items; `tokenIdCounter % nftsMetadata.length` determines which one
 - IPFS operations require the Next.js dev server running (`yarn start`)
-
-# Speedrun Ethereum AI-Guided mode
-
-This project has an interactive AI learning mode for blockchain development.
-
-## Quick Start
-Run `/start` to begin. The AI will guide you through building a smart contract interactively.
-
-## Commands
-- `/start` — Begin or resume the challenge
-- `/skip` — Skip current coding task (AI writes + explains solution)
-- `hint` — Get help anytime
-- `check` — Validate your code (code-writing challenges)
-
-## Key Files
-- `extension/.ai/CHALLENGE.yaml` — Challenge definition
-- `.challenge-ai/progress.json` — Your progress (auto-generated)

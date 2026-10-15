@@ -54,17 +54,18 @@ export const AddressInfoDropdown = ({
   return (
     <>
       <details ref={dropdownRef} className="dropdown dropdown-end leading-3">
-        <summary className="btn btn-secondary btn-sm pl-0 pr-2 dropdown-toggle gap-0 h-auto!">
+        <summary className="btn btn-sm wallet-account-trigger dropdown-toggle h-9 gap-1 px-2">
           <BlockieAvatar address={checkSumAddress} size={30} ensImage={ensAvatar} />
-          <span className="ml-2 mr-1">
+          <span className="ml-1 mr-1">
             {isENS(displayName) ? displayName : checkSumAddress?.slice(0, 6) + "..." + checkSumAddress?.slice(-4)}
           </span>
           <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
         </summary>
-        <ul className="dropdown-content menu z-2 p-2 mt-2 shadow-lg bg-base-200 gap-1">
+        <ul className="dropdown-content menu wallet-menu z-50 p-2 mt-2 gap-1">
           <NetworkOptions hidden={!selectingNetwork} />
           <li className={selectingNetwork ? "hidden" : ""}>
-            <div
+            <button
+              type="button"
               className="h-8 btn-sm flex gap-3 py-3 cursor-pointer"
               onClick={() => copyAddressToClipboard(checkSumAddress)}
             >
@@ -79,7 +80,7 @@ export const AddressInfoDropdown = ({
                   <span className="whitespace-nowrap">Copy address</span>
                 </>
               )}
-            </div>
+            </button>
           </li>
           <li className={selectingNetwork ? "hidden" : ""}>
             <label htmlFor="qrcode-modal" className="h-8 btn-sm flex gap-3 py-3">
@@ -88,17 +89,15 @@ export const AddressInfoDropdown = ({
             </label>
           </li>
           <li className={selectingNetwork ? "hidden" : ""}>
-            <button className="h-8 btn-sm flex gap-3 py-3" type="button">
+            <a
+              className="h-8 btn-sm flex gap-3 py-3 whitespace-nowrap"
+              target="_blank"
+              href={blockExplorerAddressLink}
+              rel="noopener noreferrer"
+            >
               <ArrowTopRightOnSquareIcon className="h-6 w-4 ml-2 sm:ml-0" />
-              <a
-                target="_blank"
-                href={blockExplorerAddressLink}
-                rel="noopener noreferrer"
-                className="whitespace-nowrap"
-              >
-                View on Block Explorer
-              </a>
-            </button>
+              View on Block Explorer
+            </a>
           </li>
           {allowedNetworks.length > 1 ? (
             <li className={selectingNetwork ? "hidden" : ""}>

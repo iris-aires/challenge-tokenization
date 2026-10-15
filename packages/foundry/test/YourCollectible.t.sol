@@ -16,8 +16,8 @@ contract YourCollectibleTest is Test {
     }
 
     function test_InitialSetup() public view {
-        assertEq(nft.name(), "YourCollectible");
-        assertEq(nft.symbol(), "YCB");
+        assertEq(nft.name(), "Nexus Legends");
+        assertEq(nft.symbol(), "NXLG");
         assertEq(nft.tokenIdCounter(), 0);
     }
 

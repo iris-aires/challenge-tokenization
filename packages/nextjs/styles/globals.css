@@ -3,6 +3,7 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
+  --font-sans: var(--font-geist), Arial, Helvetica, sans-serif;
   --shadow-center: 0 0 12px -2px rgb(0 0 0 / 0.05);
   --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -10,182 +11,255 @@
 @plugin "daisyui" {
   themes:
     light,
-    dark --prefersdark;
+    dark --default;
 }
 
 @plugin "daisyui/theme" {
   name: "light";
-
-  --color-primary: #93bbfb;
-  --color-primary-content: #212638;
-  --color-secondary: #dae8ff;
-  --color-secondary-content: #212638;
-  --color-accent: #93bbfb;
-  --color-accent-content: #212638;
-  --color-neutral: #212638;
+  --color-primary: #f7a600;
+  --color-primary-content: #17181c;
+  --color-secondary: #f0f1f3;
+  --color-secondary-content: #202228;
+  --color-accent: #d68b00;
+  --color-accent-content: #ffffff;
+  --color-neutral: #18191d;
   --color-neutral-content: #ffffff;
   --color-base-100: #ffffff;
-  --color-base-200: #f4f8ff;
-  --color-base-300: #dae8ff;
-  --color-base-content: #212638;
-  --color-info: #93bbfb;
-  --color-success: #34eeb6;
-  --color-warning: #ffcf72;
-  --color-error: #ff8863;
-
-  --radius-field: 0rem;
-  --radius-box: 0rem;
-  --radius-selector: 0rem;
-
-  --tt-tailw: 6px;
+  --color-base-200: #f7f8fa;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #18191d;
+  --color-info: #387cdb;
+  --color-success: #11875d;
+  --color-warning: #d68b00;
+  --color-error: #dc4055;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --radius-selector: 0.375rem;
+  --tt-tailw: 5px;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
-
-  --color-primary: #212638;
-  --color-primary-content: #f9fbff;
-  --color-secondary: #323f61;
-  --color-secondary-content: #f9fbff;
-  --color-accent: #4969a6;
-  --color-accent-content: #f9fbff;
-  --color-neutral: #f9fbff;
-  --color-neutral-content: #385183;
-  --color-base-100: #385183;
-  --color-base-200: #2a3655;
-  --color-base-300: #212638;
-  --color-base-content: #f9fbff;
-  --color-info: #385183;
-  --color-success: #34eeb6;
-  --color-warning: #ffcf72;
-  --color-error: #ff8863;
-
-  --radius-field: 0rem;
-  --radius-box: 0rem;
-  --radius-selector: 0rem;
-
-  --tt-tailw: 6px;
-  --tt-bg: var(--color-primary);
+  --color-primary: #f7a600;
+  --color-primary-content: #131419;
+  --color-secondary: #282a30;
+  --color-secondary-content: #f3f4f6;
+  --color-accent: #ffbb33;
+  --color-accent-content: #131419;
+  --color-neutral: #f3f4f6;
+  --color-neutral-content: #18191d;
+  --color-base-100: #18191e;
+  --color-base-200: #101114;
+  --color-base-300: #2b2d34;
+  --color-base-content: #f3f4f6;
+  --color-info: #6da9ff;
+  --color-success: #20b987;
+  --color-warning: #f7a600;
+  --color-error: #f15b6c;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --radius-selector: 0.375rem;
+  --tt-tailw: 5px;
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-base-300);
   }
-
-  p {
-    margin: 1rem 0;
-  }
-
   body {
     min-height: 100vh;
+    font-family: var(--font-geist), Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-
+  p {
+    margin: 0;
+  }
   h1,
   h2,
   h3,
   h4 {
-    margin-bottom: 0.5rem;
-    line-height: 1;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+  }
+  button,
+  a,
+  input,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  input,
+  summary {
+    outline-offset: 4px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+  }
+  ::selection {
+    background: #f7a600;
+    color: #101114;
   }
 }
 
 :root,
 [data-theme] {
   background: var(--color-base-200);
+  color: var(--color-base-content);
 }
-
 .btn {
   box-shadow: none;
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 6px;
 }
-
+.btn-primary {
+  border-color: transparent;
+}
+.btn-primary:hover {
+  background: #ffb526;
+  border-color: transparent;
+  color: #131419;
+}
+.btn-secondary {
+  border-color: var(--color-base-300);
+}
 .link {
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
 }
-
 .link:hover {
-  opacity: 80%;
+  color: var(--color-primary);
+}
+.exchange-container {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+.exchange-panel {
+  background: var(--color-base-100);
+  border: 1px solid var(--color-base-300);
+  border-radius: 12px;
+}
+.exchange-muted {
+  color: color-mix(in srgb, var(--color-base-content) 56%, transparent);
+}
+.exchange-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.exchange-kicker::before {
+  content: "";
+  width: 3px;
+  height: 12px;
+  background: var(--color-primary);
+}
+.exchange-header {
+  background: #18191e;
+  color: #f3f4f6;
+  border-bottom: 1px solid #303138;
+}
+.exchange-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 23px 13px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: #b6b8c0;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.exchange-nav-link:hover,
+.exchange-nav-link[aria-current="page"] {
+  color: #f7a600;
+  background: #ffffff05;
+}
+.exchange-header .btn-primary {
+  background: #f7a600;
+  color: #141519;
+}
+.exchange-hero {
+  position: relative;
+  padding-block: 76px 64px;
+}
+.exchange-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background: radial-gradient(ellipse at 70% 40%, #f7a6000d, transparent 65%);
+  pointer-events: none;
+}
+.exchange-art {
+  background: #25272d;
+  overflow: hidden;
+}
+.exchange-art img {
+  transition: transform 0.35s ease;
+}
+a:hover .exchange-art img {
+  transform: scale(1.045);
+}
+.exchange-card {
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.exchange-card:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-base-300));
+  transform: translateY(-3px);
+}
+.exchange-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.exchange-table td,
+.exchange-table th {
+  padding: 18px 24px;
+}
+.exchange-table tbody tr:hover {
+  background: color-mix(in srgb, var(--color-base-content) 3%, transparent);
+}
+@media (max-width: 640px) {
+  .exchange-container {
+    width: calc(100% - 32px);
+  }
+  .exchange-hero {
+    padding-block: 40px;
+  }
+  .exchange-table td,
+  .exchange-table th {
+    padding: 14px 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
-/* -- EXTENSION OVERRIDES -- */
-
-@plugin "daisyui/theme" {
-  name: "light";
-
-  --color-primary: #c8f5ff;
-  --color-primary-content: #026262;
-  --color-secondary: #89d7e9;
-  --color-secondary-content: #088484;
-  --color-accent: #026262;
-  --color-accent-content: #e9fbff;
-  --color-neutral: #088484;
-  --color-neutral-content: #f0fcff;
-  --color-base-100: #f0fcff;
-  --color-base-200: #e1faff;
-  --color-base-300: #c8f5ff;
-  --color-base-content: #088484;
-  --color-info: #026262;
-  --color-success: #34eeb6;
-  --color-warning: #ffcf72;
-  --color-error: #ff8863;
-
-  --radius-field: 0rem;
-  --radius-box: 0rem;
-  --radius-selector: 0rem;
-
-  /* tooltip tail width */
-  --tt-tailw: 6px;
-}
-
-/* —— DARK THEME —— */
-@plugin "daisyui/theme" {
-  name: "dark";
-
-  --color-primary: #026262;
-  --color-primary-content: #c8f5ff;
-  --color-secondary: #107575;
-  --color-secondary-content: #e9fbff;
-  --color-accent: #c8f5ff;
-  --color-accent-content: #088484;
-  --color-neutral: #e9fbff;
-  --color-neutral-content: #11acac;
-  --color-base-100: #11acac;
-  --color-base-200: #088484;
-  --color-base-300: #026262;
-  --color-base-content: #e9fbff;
-  --color-info: #c8f5ff;
-  --color-success: #34eeb6;
-  --color-warning: #ffcf72;
-  --color-error: #ff8863;
-
-  --radius-field: 0rem;
-  --radius-box: 0rem;
-  --radius-selector: 0rem;
-
-  --tt-tailw: 6px;
-  --tt-bg: var(--color-primary); /* if you need a tooltip bg override */
-}
-
-@theme inline {
-  --font-space-grotesk: var(--font-space-grotesk);
-}
-
-/* Override Scaffold UI theme colors */
 html[data-theme] {
   --color-sui-primary: var(--color-primary);
-  --color-sui-primary-content: var(--color-primary-content);
+  --color-sui-primary-content: var(--color-base-content);
   --color-sui-primary-subtle: var(--color-secondary);
   --color-sui-primary-neutral: var(--color-base-200);
   --color-sui-base-content: var(--color-base-content);
@@ -193,13 +267,176 @@ html[data-theme] {
   --color-sui-neutral: var(--color-neutral);
   --color-sui-neutral-content: var(--color-neutral-content);
   --color-sui-accent: var(--color-accent);
-
-  --color-sui-input-border: var(--color-secondary);
+  --color-sui-input-border: var(--color-base-300);
   --color-sui-input-background: var(--color-base-200);
-  --color-sui-input-text: color-mix(in oklab, var(--color-sui-base-content) 70%, transparent);
-  --color-sui-input-border-error: var(--color-sui-error);
-  --color-sui-input-border-disabled: var(--color-sui-primary-subtle);
+  --color-sui-input-text: var(--color-base-content);
+  --color-sui-input-border-error: var(--color-error);
+  --color-sui-input-border-disabled: var(--color-secondary);
+  --color-sui-skeleton-base: var(--color-secondary);
+  --color-sui-skeleton-highlight: var(--color-base-300);
+}
 
-  --color-sui-skeleton-base: var(--color-sui-primary-subtle);
-  --color-sui-skeleton-highlight: var(--color-sui-primary-neutral);
+/* Wallet UI needs readable foregrounds in both page themes and the dark header. */
+.wallet-account-trigger {
+  background: #282a30;
+  border: 1px solid #3b3d45;
+  color: #f3f4f6;
+}
+.wallet-account-trigger:hover {
+  background: #34363d;
+  border-color: #5b5e68;
+}
+.wallet-menu {
+  width: 250px;
+  max-width: calc(100vw - 32px);
+  background: var(--color-base-100);
+  color: var(--color-base-content);
+  border: 1px solid var(--color-base-300);
+  border-radius: 10px;
+  box-shadow: 0 12px 40px #0003;
+}
+.wallet-menu li > :is(button, a, label) {
+  border-radius: 6px;
+  min-height: 38px;
+}
+.wallet-menu li > :is(button, a, label):hover {
+  background: var(--color-base-300);
+}
+.wallet-menu li > :is(button, a, label):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+.wallet-balance {
+  color: #c5c7ce;
+  --color-sui-primary-content: #c5c7ce;
+}
+
+/* Adapt the contract debugger to the exchange palette without changing its logic. */
+.contract-debug-ui {
+  color: var(--color-base-content);
+  --color-sui-primary: var(--color-base-300);
+  --color-sui-primary-content: var(--color-base-content);
+  --color-sui-primary-subtle: var(--color-base-300);
+  --color-sui-primary-neutral: var(--color-base-200);
+  --color-sui-base-100: var(--color-base-100);
+  --color-sui-base-content: var(--color-base-content);
+  --color-sui-accent: var(--color-primary);
+}
+.contract-debug-ui > .grid {
+  display: block;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+.contract-debug-ui > .grid > .grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.contract-debug-ui > .grid > .grid > div {
+  grid-column: auto;
+  min-width: 0;
+}
+.contract-debug-ui [class*="shadow"] {
+  box-shadow: none;
+}
+.contract-debug-ui [class~="bg-sui-base-100"],
+.contract-debug-ui [class~="overflow-y-auto"] {
+  background: var(--color-base-100);
+  border: 1px solid var(--color-base-300);
+  border-radius: 12px;
+}
+.contract-debug-ui [class~="overflow-y-auto"] {
+  padding: 8px 22px;
+}
+.contract-debug-ui [class~="overflow-y-auto"] > div {
+  border-bottom: 1px solid var(--color-base-300);
+  padding-block: 14px;
+}
+.contract-debug-ui [class~="overflow-y-auto"] > div:last-child {
+  border-bottom: 0;
+}
+.contract-debug-ui [class~="overflow-y-auto"] h3 {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--color-base-content) 56%, transparent);
+}
+.contract-debug-ui [class~="mt-10"] {
+  margin-top: 0;
+  overflow: hidden;
+}
+.contract-debug-ui [class~="-z-10"] {
+  position: static;
+  z-index: auto;
+  align-self: stretch;
+  width: 100%;
+  height: auto;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--color-base-300);
+  background: var(--color-base-200);
+}
+.contract-debug-ui [class~="-z-10"] > div {
+  justify-content: flex-start;
+}
+.contract-debug-ui [class~="-z-10"] p {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+.contract-debug-ui .btn-dc {
+  min-height: 34px;
+  padding: 7px 16px;
+  border: 1px solid var(--color-base-300);
+  border-radius: 6px;
+  background: var(--color-secondary);
+  color: var(--color-secondary-content);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: none;
+}
+.contract-debug-ui .btn-dc:not(:disabled):hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.contract-debug-ui .btn-dc:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.contract-debug-ui .btn-dc:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.contract-debug-ui .border-2 {
+  border-width: 1px;
+  border-radius: 6px;
+}
+.contract-debug-ui input {
+  font-size: 13px;
+  color: var(--color-base-content);
+}
+.contract-debug-ui input::placeholder {
+  color: color-mix(in srgb, var(--color-base-content) 35%, transparent);
+}
+.contract-debug-ui [class~="h-[2.2rem]"] {
+  height: 42px;
+  min-height: 42px;
+}
+.contract-debug-ui .border-2:focus-within {
+  border-color: var(--color-primary);
+}
+@media (min-width: 1024px) {
+  .contract-debug-ui > .grid > .grid {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+}
+
+.json-editor :is(input, textarea) {
+  background-color: var(--color-base-200) !important;
+  color: var(--color-base-content) !important;
+  border: 1px solid var(--color-base-300) !important;
+  border-radius: 4px;
+}
+.json-editor :is(input, textarea):focus {
+  outline: 1px solid var(--color-primary);
 }
